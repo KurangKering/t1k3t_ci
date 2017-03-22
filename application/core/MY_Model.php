@@ -20,6 +20,14 @@ class MY_Model extends CI_Model {
 		
 	}
 
+	public function getWhere($table, $where) 
+	{
+		$result = $this->db->get_where($table, $where);
+		if ($result->num_rows() > 0 ) {
+			return $result->result();
+		}
+		return array();
+	}
 	public function getByID($table, $where) {
 		$result = $this->db->get_where($table, $where);
 		if ($result->num_rows() > 0 ) {
@@ -32,6 +40,18 @@ class MY_Model extends CI_Model {
 	public function delete($table, $where) {
 		$result = $this->db->delete($table, $where);
 		return $result;
+	}
+
+	public function insert($table, $data) 
+	{
+		return $this->db->insert($table, $data);
+	}
+
+	public function update($table, $set, $where) 
+	{
+		$this->db->set($set);
+		$this->db->where($where);
+		$this->db->update($table);
 	}
 
 }

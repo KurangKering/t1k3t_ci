@@ -32,31 +32,31 @@ class Konfigurasi extends CI_Controller {
 	public function update_konfig() 
 	{ 
 
-		$new_fee    = $this->input->post('fee');
+		$new_fee    = ekstrak_angka($this->input->post('fee'));
 		$new_persen = $this->input->post('persen');
 		$new_pass = $this->input->post('new_pass');
 		$new_pass_conf = $this->input->post('new_pass_confirm');
 
 		$konfig_awal = $this->konfigurasi->getAll('konfig')[0];
 
-		if ($konfig_awal->fee != $new_fee || ($konfig_awal->persen * 100) != floatval($new_persen))
+		if (ekstrak_angka($konfig_awal->fee) != $new_fee || ($konfig_awal->persen * 100) != floatval($new_persen))
 		{
 			$sql         = 'UPDATE konfig SET ';
 			$data        = array();
 			$param       = array();
-			if ($old_fee != $new_fee) 
+			if (ekstrak_angka($konfig_awal->fee) != $new_fee) 
 			{
-				$data[]      = "fee = :new_fee";
-				$param[':new_fee'] = $new_fee; 
+				$data[]      = "fee = ?";
+				$param[] = $new_fee; 
 				$_SESSION['message'] .= '<script type="text/javascript">';
 				$_SESSION['message'] .= '$.notify({message: "Berhasil Merubah Fee" },';
 				$_SESSION['message'] .= '{type: "success",delay: 2000});';
 				$_SESSION['message'] .= '</script>';
 			}
-			if (($old_persen * 100) != floatval($new_persen)) 
+			if (($konfig_awal->persen * 100) != floatval($new_persen)) 
 			{
-				$data[] = "persen = :new_persen";
-				$param[':new_persen'] = $new_persen / 100;
+				$data[] = "persen = ?";
+				$param[] = $new_persen / 100;
 				$_SESSION['message'] .= '<script type="text/javascript">';
 				$_SESSION['message'] .= '$.notify({message: "Berhasil Merubah Data Persen" },';
 				$_SESSION['message'] .= '{type: "success",delay: 2000});';
@@ -65,16 +65,18 @@ class Konfigurasi extends CI_Controller {
 			$query_data             = implode (", ", $data);
 			if ($query_data) 
 			{
+
 				$sql                    .= $query_data;
-				$sql                    .= " WHERE fee = :old_fee";
-				$param[':old_fee'] = $old_fee;
-				$query                  = $db->prepare($sql);
-				$query->execute($param);
+				$sql                    .= " WHERE fee = ?";
+				$param[] = ekstrak_angka($konfig_awal->fee);
+				$query                  = $this->db->query($sql, $param);
+
+				
 			}
 		}
 		if ($new_pass) {
-			if ($new_pass_confirm) {
-				if ($new_pass != $new_pass_confirm) {
+			if ($new_pass_conf) {
+				if ($new_pass != $new_pass_conf) {
 					$_SESSION['message'] .= '<script type="text/javascript">';
 					$_SESSION['message'] .= '$.notify({message: "Password baru dengan password repeat tidak sama !" },';
 					$_SESSION['message'] .= '{type: "danger",delay: 2000});';
@@ -82,10 +84,8 @@ class Konfigurasi extends CI_Controller {
 				}
 				else
 				{
-					$sql = 'UPDATE user SET password = :new_password';
-					$query = $db->prepare($sql);
-					$query->bindParam(':new_password', $new_pass);
-					$query->execute();
+					$sql = 'UPDATE user SET password = ?';
+					$query = $this->db->query($sql, $new_pass);
 					$_SESSION['message'] .= '<script type="text/javascript">';
 					$_SESSION['message'] .= '$.notify({message: "Berhasil Merubah Password" },';
 					$_SESSION['message'] .= '{type: "success",delay: 2000});';
@@ -101,7 +101,7 @@ class Konfigurasi extends CI_Controller {
 
 		}
 
-
+		redirect('konfigurasi');
 
 
 	}

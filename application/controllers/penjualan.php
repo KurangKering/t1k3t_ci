@@ -9,9 +9,8 @@ class Penjualan extends CI_Controller {
 		parent::__construct();
 		$this->load->model('m_penjualan', 'penjualan');
 		$this->load->helper('penjualan_helper');
-		$this->template->js_add('assets/js/priceFormat.js', 'import');
 		$this->template->js_add('assets/jquerypriceformat/jquery.priceformat.min.js', 'import');
-		
+		$this->template->js_add('assets/js/priceFormat.js', 'import');
 	}
 	public function index()
 	{
@@ -31,9 +30,15 @@ class Penjualan extends CI_Controller {
 
 	public function tambah_penjualan() 
 	{
-		
+
 		$data['header'] = "Tambah Penjualan";
-		$this->template->render('penjualan/v_form_penjualan', $data);
+		$data['konfig'] = $this->penjualan->getAll('konfig')[0];
+		$data['maskapai'] = $this->penjualan->getWhere('maskapai', array('status' => 'ACTIVE'));
+		$data['tc'] = $this->penjualan->getWhere('tc', array('status' => 'ACTIVE'));
+
+		$this->template->js_add('assets/js/penjualan.js', 'import');
+		$this->template->js_add('count()', 'embed');
+		$this->template->render('penjualan/v_tambah_penjualan', $data);
 	}
 
 
@@ -43,7 +48,7 @@ class Penjualan extends CI_Controller {
 		$this->template->render('penjualan/v_form_penjualan', $data);
 	}
 
-	
+
 
 	private function render_js() 
 	{
@@ -69,4 +74,4 @@ class Penjualan extends CI_Controller {
 }
 
 /* End of file penjualan.php */
-/* Location: ./application/controllers/penjualan.php */
+	/* Location: ./application/controllers/penjualan.php */

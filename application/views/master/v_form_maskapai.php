@@ -1,18 +1,20 @@
+
 <?php echo validation_errors(); ?>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <div class="box box-info">
       <div class="box-header with-border">
-        <h3 class="box-title">Form Tambah TC</h3>
+        <h3 class="box-title"><?php echo $judul_form; ?></h3>
       </div>
       <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" method="post">
+      <form class="form-horizontal" method="post" action="<?php echo base_url() ?>master/dummy">
         <div class="box-body">
+        <input type="hidden" name="tipe" value="<?php echo $tipe_aksi ?>">
           <div class="form-group">
-            <label for="nama" class="col-md-4 control-label">Nama TC</label>
+            <label for="nama" class="col-md-4 control-label">Nama Maskapai</label>
             <div class="col-md-8">
-              <input class="form-control" id="nama" name="nama" placeholder="Nama TC" type="text">
+            <input class="form-control" id="nama" value="<?php echo isset($maskapai->nama) ? set_value("nama", $maskapai->nama) : set_value("nama"); ?>" name="nama" placeholder="Nama Maskapai" type="text">
             </div>
           </div>
           <div class="form-group">
@@ -35,7 +37,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-        <a href="<?php echo base_url() ?>master"><button type="button" class="btn btn-default">Cancel</button></a>
+          <a href="<?php echo base_url() ?>master"><button type="button" class="btn btn-default">Cancel</button></a>
           <input type="submit"  class="btn btn-info pull-right" value="Simpan" name="">
           
         </div>
@@ -44,3 +46,4 @@
     </div>
   </div>
 </div>
+

@@ -120,7 +120,9 @@
 							<div class="form-group">
 								<label>Maskapai</label>
 								<select id="maskapai" name="maskapai" required class="form-control">
-									
+									<option value="">Cicak</option>}
+									<option value="">Kecoa</option>}
+									option
 								</select>
 							</div>
 							<div class="form-group">

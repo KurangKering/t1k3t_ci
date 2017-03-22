@@ -1,11 +1,14 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="box">
+    <div class="box-header">
+      <a href="<?php echo base_url('penjualan/tambah_penjualan'); ?>" class="btn btn-primary btn-flat">Tambah Penjualan</a>
+    </div>
      <div class="box-body">
-      <table  width="100%" class="table table-striped table-bordered table-hover nowrap" cellspacing="0" id="table_penjualan" >
+      <table  class="table table-striped table-bordered table-hover " cellspacing="0" id="table_penjualan" >
         <thead>
           <tr>
-            <th>Booking Code</th>
+            <th no>Booking Code</th>
             <th>Maskapai</th>
             <th>Tanggal Issued</th>
             <th>Q</th>
@@ -43,7 +46,7 @@
               <td><?php echo  rupiah_converter($jual->profit_2); ?></td>
               <td><?php echo  $jual->nama_tc; ?></td>
               <td><?php echo  rupiah_converter($jual->jumlah); ?></td>
-              <td></td>
+              <td><a class="btn btn-xs btn-warning" href="<?php echo base_url('penjualan/edit_penjualan/'. $jual->booking_code); ?>">Edit</a> <a href="<?php echo base_url('penjualan/hapus_penjualan/'. $jual->booking_code); ?>" class="btn btn-xs btn-danger">Hapus</a></td>
             </tr>
           <?php endforeach ?>
         </tbody>

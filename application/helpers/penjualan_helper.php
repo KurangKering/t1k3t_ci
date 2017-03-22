@@ -25,10 +25,6 @@ if ( ! function_exists('ekstrak_angka'))
 	function ekstrak_angka($var)
 	{
 		
-		$tmp;
-		preg_match_all("\d+",
-			$var, $tmp);
-		return $tmp;
-
+		return preg_replace('/\D/', '', $var);
 	}   
 }
