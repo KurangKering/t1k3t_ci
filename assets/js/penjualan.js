@@ -8,6 +8,7 @@ function clearNumber(element)
 }
 function count()
 {
+
 	var q       = clearNumber($('#q').val());
 	var hpp     = clearNumber($('#hpp').val());
 	var invoice = clearNumber($('#invoice').val());
@@ -16,6 +17,7 @@ function count()
 	doCount(q, hpp, invoice, fee, persen);
 	$('#q, #hpp, #invoice').on('input change paste keypress', function() 
 	{
+		console.log($('#q').val());
 		var q       = clearNumber($('#q').val());
 		var hpp     = clearNumber($('#hpp').val());
 		var invoice = clearNumber($('#invoice').val());

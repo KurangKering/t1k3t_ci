@@ -1,3 +1,4 @@
+<?php echo validation_errors(); ?>
 <div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-info">
@@ -115,6 +116,8 @@
 			</div>
 			<div class="panel-body">
 				<form role="form" action="" method="POST">
+				<input type="hidden" name="fee" value="<?php echo $konfig->fee; ?>">
+				<input type="hidden" name="persen" value="<?php echo $konfig->persen ?>">
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
@@ -126,33 +129,23 @@
 									<?php endforeach ?>
 								</select>
 							</div>
-							<div class="form-group">
-								<label>Date masks:</label>
-
-								<div class="input-group">
-									<div class="input-group-addon">
-										<i class="fa fa-calendar"></i>
-									</div>
-									<input class="form-control" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" type="text">
-								</div>
-								<!-- /.input group -->
-							</div>
+						
 							<div class="form-group">
 								<label>Tanggal Issued</label>
 
-								<input   id="tanggal" data-provide="datepicker" type="date" name="tanggal"  required class="form-control readonly">
+								<input   value="<?php echo set_value('tanggal'); ?>" id="tanggal" data-provide="datepicker" type="date" name="tanggal"  required class="form-control readonly">
 							</div>
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label>Booking Code</label>
-										<input  id="booking_code" name="booking_code" type='text'  required class="form-control">
+										<input  value="<?php echo set_value('booking_code'); ?>" id="booking_code" name="booking_code" type='text'  required class="form-control">
 									</div>
 								</div>
 								<div class="col-lg-6">
 									<div class="form-group">
 										<label>Q</label>
-										<input  id="q" type='number' name="q"  required class="form-control">
+										<input  value="<?php echo set_value('q'); ?>" id="q" type='number' name="q"  required class="form-control">
 									</div>
 								</div>
 							</div>
@@ -162,14 +155,14 @@
 								<label>HPP</label>
 								<div class="input-group">	
 									<span class="input-group-addon">Rp</span>	
-									<input  type="text" id="hpp" name="hpp"  required class="form-control">
+									<input  value="<?php echo set_value('hpp'); ?>" type="text" id="hpp" name="hpp"  required class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
 								<label>Invoice</label>
 								<div class="input-group">	
 									<span class="input-group-addon">Rp</span>	
-									<input  type='text' id="invoice" name="invoice"  required class="form-control">
+									<input  value="<?php echo set_value('invoice'); ?>" type='text' id="invoice" name="invoice"  required class="form-control">
 								</div>
 							</div>
 							<div class="form-group">
