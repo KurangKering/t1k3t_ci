@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +13,7 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/adminLTE/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/adminLTE/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="<?php echo base_url() ?>assets/toastr/toastr.min.css">
   <?php echo $css; ?>
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url() ?>assets/template/adminLTE/dist/css/AdminLTE.min.css">
@@ -80,7 +82,7 @@
         </section>
         <!-- Main content -->
         <section class="content">
-        <?php echo $content ?>
+          <?php echo $content ?>
         </section>
         <!-- /.content -->
       </div>
@@ -94,8 +96,9 @@
       <!-- /.container -->
     </footer>
   </div>
+
   <!-- ./wrapper -->
-   <!-- jQuery 2.2.3 -->
+  <!-- jQuery 2.2.3 -->
   <script src="<?php echo base_url() ?>assets/template/adminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>
   <!-- Bootstrap 3.3.6 -->
   <script src="<?php echo base_url() ?>assets/template/adminLTE/bootstrap/js/bootstrap.min.js"></script>
@@ -103,7 +106,10 @@
   <script src="<?php echo base_url() ?>assets/template/adminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
   <!-- FastClick -->
   <script src="<?php echo base_url() ?>assets/template/adminLTE/plugins/fastclick/fastclick.js"></script>
+  <script src="<?php echo base_url() ?>assets/toastr/toastr.min.js"></script>
+
   <?php echo $js; ?>
+  <?php echo $this->session->flashdata('pesan'); ?>
   <!-- AdminLTE App -->
   <script src="<?php echo base_url() ?>assets/template/adminLTE/dist/js/app.min.js"></script>
 </body>

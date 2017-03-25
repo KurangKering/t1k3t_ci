@@ -6,45 +6,83 @@ class Auth extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('auth_model');
-		$this->output->enable_profiler(TRUE);
+
+		$this->load->model('m_auth', 'auth');
+
 	}
 	public function index()
 	{
-
+		if ($this->session->userdata('logged_in')) {
+			redirect('dashboard');
+		}
 		$this->login();
-		$this->load->view('auth/login');
-
 	}
 
-	public function login() {
-		$this->form_validation->set_rules('username', 'User', 'trim|required');
-		$this->form_validation->set_rules('password', 'password', 'trim|required');
+	public function login() 
+	{
 
-		if ($this->form_validation->run()) {
-			$username = $this->input->post('username');
-			$password = $this->input->post('password');
-			$result = $this->auth_model->cek_login($username, $password);
+		$this->form_validation->set_rules('username', 'Username', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('auth/login');
+		} else {
+			$validasi = $this->auth->cek_login();
+			if ($validasi) {
 
-			if ($result) {
-				$sess_user = array(
-					'username' => $result[0]->username
+				$array = array(
+					'username' => $validasi->username,
+					'logged_in' => true
 					);
-
-				$this->session->set_userdata( $sess_user );
+				$this->session->set_userdata( $array );
 
 				redirect('dashboard');
-
 			}
 
-		} 
+			else {
+				$this->session->set_flashdata('pesan', $this->pesanGagal('Username / Password Salah'));
+				redirect('auth');
+			}
+			
+		}
 	}
-	public function logout() {
-		$this->session->unset_userdata('username');
-		$this->session->sess_destroy();
 
+	public function logout()
+	{
+
+		$this->session->sess_destroy();
 		redirect('auth');
 	}
+
+	private function pesanGagal($message)
+	{
+		$pesan = '
+		<script>
+
+			toastr.options = {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": true,
+				"progressBar": false,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "5000",
+				"hideDuration": "5000",
+				"timeOut": "3000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			},
+			toastr["error"]("'.$message.'")
+
+		</script>
+		';
+
+		return $pesan;
+	}
+	
 }
 
 /* End of file auth.php */

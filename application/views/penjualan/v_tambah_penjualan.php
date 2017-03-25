@@ -1,5 +1,4 @@
-<?php echo validation_errors(); ?>
-<div class="row">
+	<div class="row">
 	<div class="col-lg-12">
 		<div class="panel panel-info">
 			<div class="panel-heading">
@@ -115,7 +114,7 @@
 				Form Input
 			</div>
 			<div class="panel-body">
-				<form role="form" action="" method="POST">
+				<form role="form" method="POST" action="<?php echo base_url('penjualan/do_tambah_penjualan'); ?>">
 				<input type="hidden" name="fee" value="<?php echo $konfig->fee; ?>">
 				<input type="hidden" name="persen" value="<?php echo $konfig->persen ?>">
 					<div class="row">
@@ -132,7 +131,7 @@
 						
 							<div class="form-group">
 								<label>Tanggal Issued</label>
-
+								
 								<input   value="<?php echo set_value('tanggal'); ?>" id="tanggal" data-provide="datepicker" type="date" name="tanggal"  required class="form-control readonly">
 							</div>
 							<div class="row">
@@ -174,7 +173,7 @@
 								</select>
 							</div>
 							<input type="submit" class="btn btn-default" name="simpan" value="Save">
-							<a href="penjualan_data.php"><button type="button" class="btn btn-default">Cancel</button></a>
+							<a href="<?php echo base_url('penjualan'); ?>"><button type="button" class="btn btn-default">Cancel</button></a>
 						</div>
 					</div>
 				</form>

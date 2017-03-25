@@ -28,3 +28,48 @@ if ( ! function_exists('ekstrak_angka'))
 		return preg_replace('/\D/', '', $var);
 	}   
 }
+
+if ( ! function_exists('tampil_bulan'))
+{
+	function tampil_bulan ($x) {
+		$bulan = array ('','Januari','Februari','Maret','April',
+			'Mei','Juni','Juli','Agustus',
+			'September','Oktober','November','Desember');
+		return $bulan[$x];
+	}
+}
+
+if (! function_exists('tampil_pesan')) {
+	function tampil_pesan($tipe, $pesan)
+	{
+		if (!$pesan  || !$tipe ) {
+			return null;
+		}
+		$sql = '
+		<script>
+
+			toastr.options = {
+				"closeButton": false,
+				"debug": false,
+				"newestOnTop": true,
+				"progressBar": false,
+				"positionClass": "toast-bottom-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "5000",
+				"hideDuration": "5000",
+				"timeOut": "3000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			},
+			toastr["'.$tipe.'"]("'.$pesan.'")
+
+		</script>
+		';
+
+		return $sql;
+	}
+}

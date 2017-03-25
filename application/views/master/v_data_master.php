@@ -33,9 +33,9 @@
               ?>
               <td style="text-align: center"> <span class="<?php echo $class; ?>"><?php echo $maskapai->status ?></span></td>
               <td>
-                
+
                 <a class="btn btn-xs btn-warning" href="<?php echo base_url('master/edit_maskapai/'. $maskapai->id_maskapai) ?>">Edit</a>
-                  <a class="btn btn-danger btn-xs" href="<?php echo base_url('master/hapus_maskapai/'. $maskapai->id_maskapai) ?>"><span>Hapus</span></a>
+                <a class="btn btn-danger btn-xs" href="#" data-href="<?php echo base_url('master/hapus_maskapai/'.$maskapai->id_maskapai) ?>"  data-toggle="modal" data-target="#confirm-delete-maskapai"><span>Hapus</span></a>
                 
               </td>
             </tr> 
@@ -81,9 +81,9 @@
               ?>
               <td style="text-align: center"> <span class="<?php echo $class; ?>"><?php echo $tc->status ?></span></td>
               <td>
-                
+
                 <a class="btn btn-xs btn-warning" href="<?php echo base_url('master/edit_tc/'. $tc->id_tc) ?>">Edit</a>
-                  <a class="btn btn-danger btn-xs" href="<?php echo base_url('master/hapus_tc/'. $tc->id_tc) ?>"><span>Hapus</span></a>
+                <a class="btn btn-danger btn-xs" href="#" data-href="<?php echo base_url('master/hapus_tc/'.$tc->id_tc) ?>"  data-toggle="modal" data-target="#confirm-delete-tc"><span>Hapus</span></a>
                 
               </td>
             </tr> 
@@ -96,6 +96,39 @@
   <!-- /.box -->
 </div>
 </div>
-</div>
-</div>
-</div>
+<div class="modal modal-danger" id="confirm-delete-maskapai" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Yakin Ingin Menghapus Maskapai ini ?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
+          <a class="btn btn-outline btn-ok">Delete</a>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+  <div class="modal modal-danger" id="confirm-delete-tc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+            <h4 class="modal-title">Yakin Ingin Menghapus TC ini ?</h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline" data-dismiss="modal">Close</button>
+            <a class="btn btn-outline btn-ok">Delete</a>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>

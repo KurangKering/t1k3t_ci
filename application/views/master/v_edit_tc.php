@@ -7,12 +7,13 @@
       </div>
       <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" method="post">
+      <form class="form-horizontal" method="post" action="<?php echo base_url('master/do_edit_tc'); ?>">
         <div class="box-body">
+        <input type="hidden" name="id_tc" value="<?php echo $tc->id_tc; ?>">
           <div class="form-group">
             <label for="nama" class="col-md-4 control-label">Nama TC</label>
             <div class="col-md-8">
-              <input class="form-control" id="nama" name="nama" value="<?php echo $tc->nama; ?>" placeholder="Nama TC" type="text">
+              <input required class="form-control" id="nama" name="nama" value="<?php echo $tc->nama; ?>" placeholder="Nama TC" type="text">
             </div>
           </div>
           <div class="form-group">

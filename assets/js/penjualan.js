@@ -1,3 +1,7 @@
+
+$(function() {
+	count();
+});
 function clearNumber(element) 
 {
 	if (element == 0) {
@@ -15,7 +19,7 @@ function count()
 	var fee     = clearNumber($('#fee').val());
 	var persen  = parseFloat($('#persen').val() / 100 );
 	doCount(q, hpp, invoice, fee, persen);
-	$('#q, #hpp, #invoice').on('input change paste keypress', function() 
+	$('#q, #hpp, #invoice, #persen, #fee').on('input change paste keypress', function() 
 	{
 		console.log($('#q').val());
 		var q       = clearNumber($('#q').val());
@@ -49,7 +53,7 @@ function doCount(q, hpp, invoice, fee, persen){
 
 function formatPrice() 
 {
-	$('#hpp, #invoice, #nta, #harga_jual, #up_salling, #profit_1, #fee, #adm_fee, #profit_2, #jumlah').priceFormat({
+	$('#q, #hpp, #invoice, #nta, #harga_jual, #up_salling, #profit_1, #fee, #adm_fee, #profit_2, #jumlah').priceFormat({
 		centsLimit: 0,
 		clearPrefix: true,
 		prefix: '',

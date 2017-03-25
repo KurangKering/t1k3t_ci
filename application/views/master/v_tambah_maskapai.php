@@ -1,4 +1,4 @@
-<?php echo validation_errors(); ?>
+
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <div class="box box-info">
@@ -7,12 +7,12 @@
       </div>
       <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" method="post">
+      <form class="form-horizontal" method="post" action="<?php echo base_url('master/do_tambah_maskapai'); ?>">
         <div class="box-body">
           <div class="form-group">
             <label for="nama" class="col-md-4 control-label">Nama Maskapai</label>
             <div class="col-md-8">
-              <input class="form-control" id="nama" name="nama" placeholder="Nama Maskapai" type="text">
+              <input required class="form-control" id="nama" name="nama" placeholder="Nama Maskapai" type="text">
             </div>
           </div>
           <div class="form-group">

@@ -7,12 +7,13 @@
       </div>
       <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" method="post">
+      <form class="form-horizontal" method="post" action="<?php echo base_url('master/do_edit_maskapai'); ?>">
         <div class="box-body">
+        <input type="hidden" name="id_maskapai" value="<?php echo $maskapai->id_maskapai ?>">
           <div class="form-group">
             <label for="nama" class="col-md-4 control-label">Nama Maskapai</label>
             <div class="col-md-8">
-              <input class="form-control" id="nama" name="nama" value="<?php echo $maskapai->nama; ?>" placeholder="Nama Maskapai" type="text">
+              <input required class="form-control" id="nama" name="nama" value="<?php echo $maskapai->nama; ?>" placeholder="Nama Maskapai" type="text">
             </div>
           </div>
           <div class="form-group">

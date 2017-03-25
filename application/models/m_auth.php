@@ -11,10 +11,20 @@ class M_auth extends MY_Model {
 		
 	}
 
-	public function cek_login($username, $password) {
-		$where = array('username' => $username,  'password' => $password);
-		$result = $this->db->get_where($this->table, $where);
-		return $result->result();
+	public function cek_login() {
+		
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+
+		$this->db->where('username', $username);
+		$this->db->where('password', $password);
+		$result = $this->db->get('user');
+
+		if ($result->num_rows() > 0 ) {
+			return $result->row();
+		}
+
+		return false;
 	}
 }
 

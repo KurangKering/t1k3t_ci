@@ -51,7 +51,9 @@ class MY_Model extends CI_Model {
 	{
 		$this->db->set($set);
 		$this->db->where($where);
-		$this->db->update($table);
+		$result = $this->db->update($table);
+
+		return $result;
 	}
 
 }
