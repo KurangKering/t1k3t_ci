@@ -1,64 +1,73 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Laporan extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->output->enable_profiler(TRUE);
-		$this->load->helper('penjualan_helper');
-		$this->load->model('m_laporan', 'laporan');
-
+		$this->load->model('M_laporan', 'laporan');
 	}
 	public function index()
 	{
-		
-
-		$result = $this->laporan->getLaporan('2017','2');
-
-		var_dump($result);
+		$bulan = array ('Pilih Bulan','Januari','Februari','Maret','April',
+			'Mei','Juni','Juli','Agustus',
+			'September','Oktober','November','Desember');
+		$data['bulan'] = $bulan;
+		$this->template->render('laporan/v_laporan', $data);
 	}
-
 	public function tampil_laporan($tahun = null, $bulan = null)
 	{
-		if ($tahun == null || $bulan == null) {
-			show_404();
+		$laporan = $this->laporan->getLaporan($tahun, $bulan);
+		$currdate = false;
+		$currmaskapai = false;
+		$maskapai = array('Air Asia', 'Merpati', 'Garuda', 'Citilink');
+		$data_laporan  = false;
+		$date = generate_date($tahun, $bulan);
+		foreach ($laporan as $index => $penjualan) {
+			if ($penjualan['tanggal'] != $currdate) {
+				$currdate = $penjualan['tanggal'];
+			}
+			$data_laporan[$penjualan['tanggal']][] = array('maskapai' => $penjualan['nama_maskapai'], 'jumlah' =>  $penjualan['jumlah']);
 		}
-
-		$master_maskapai = $this->laporan->getAll('maskapai');
-		$master_laporan  = $this->laporan->getLaporan($tahun, $bulan);
-		$lapor = array();
-		$harihari = $this->laporan->getHari($tahun, $bulan);
-		foreach ($harihari as $hari_index => $hari) {
-			foreach ($master_maskapai as $maskapai_index => $maskapai) {
-				if ($master_laporan['data'][$maskapai_index]->tanggal == $hari) {
-
-					if ($master_laporan) {
-						# code...
+		foreach ($data_laporan as $key => $laporan) {
+			echo $key . PHP_EOL;
+			foreach ($laporan as $kunci => $lapor) {
+				foreach ($maskapai  as $masmas) {
+					if ($masmas != $lapor['maskapai']) {
+						echo $masmas . '---' . PHP_EOL;
 					}
-					$lapor[$hari][$maskapai->nama]['setoran'] = $master_laporan['data'];
+					else
+					{
+						echo $masmas. ' '. $lapor['jumlah'] . PHP_EOL;
+					}
 				}
-				
-			} 
+			}
 		}
-
-		echo '<pre>';
-		print_r($lapor);
-		echo '</pre';
-
-		// $this->template->css_add('
-		// 	.vertical-center {
-		// 		vertical-align: middle !important;
+		// var_dump($data_laporan);
+		//var_dump($data_laporan);
+// foreach ($laporan as $index => $penjualan) {
+// 	if ($penjualan['tanggal'] != $currdate) {
+// 		echo $penjualan['tanggal'] . '<br>';
+// 		$currdate = $penjualan['tanggal'];
+// 	}
+// 	echo $penjualan['nama_maskapai'] . '<br>';
+// 	echo $penjualan['jumlah']. '<br>';
+// }
+		// foreach ($laporan as $index => $penjualan) {
+		// 	if ($penjualan['tanggal'] != $currdate) {
+		// 		echo $penjualan['tanggal'] . '<br>';
+		// 		$currdate = $penjualan['tanggal'];
 		// 	}
-		// 	', 'embed');
-		// $this->template->render('laporan/v_tampil_laporan', $data);
+		// 	foreach ($maskapai as $index => $mask) {
+		// 		if ($mask != $penjualan['nama_maskapai']) {
+		// 			echo $mask . '<br>';
+		// 		}
+		// 		// echo $penjualan['nama_maskapai'] . '<br>';
+		// 		// echo $penjualan['jumlah']. '<br>';
+		// 	}
+		// }
 	}
-
 	public function testt () {
-
 	}
-
 }
-
 /* End of file laporan.php */
 /* Location: ./application/controllers/laporan.php */

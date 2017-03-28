@@ -3,11 +3,11 @@
   <div class="col-md-6 col-md-offset-3">
     <div class="box box-info">
       <div class="box-header with-border">
-        <h3 class="box-title">Form Tambah TC</h3>
+        <h3 class="box-title">Form Edit TC</h3>
       </div>
       <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" method="post" action="<?php echo base_url('master/do_edit_tc'); ?>">
+      <form autocomplete="off" class="form-horizontal" method="post" action="<?php echo base_url('master/do_edit_tc'); ?>">
         <div class="box-body">
         <input type="hidden" name="id_tc" value="<?php echo $tc->id_tc; ?>">
           <div class="form-group">

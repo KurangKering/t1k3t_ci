@@ -1,6 +1,15 @@
 
 $(function() {
+	
+	var q       = clearNumber($('#q').val());
+	var hpp     = clearNumber($('#hpp').val());
+	var invoice = clearNumber($('#invoice').val());
+	var fee     = clearNumber($('#fee').val());
+	var persen  = parseFloat($('#persen').val() / 100 );
+	doCount(q, hpp, invoice, fee, persen);
 	count();
+
+
 });
 function clearNumber(element) 
 {
@@ -12,16 +21,8 @@ function clearNumber(element)
 }
 function count()
 {
-
-	var q       = clearNumber($('#q').val());
-	var hpp     = clearNumber($('#hpp').val());
-	var invoice = clearNumber($('#invoice').val());
-	var fee     = clearNumber($('#fee').val());
-	var persen  = parseFloat($('#persen').val() / 100 );
-	doCount(q, hpp, invoice, fee, persen);
-	$('#q, #hpp, #invoice, #persen, #fee').on('input change paste keypress', function() 
+	$('.input-change').on('input change paste', function() 
 	{
-		console.log($('#q').val());
 		var q       = clearNumber($('#q').val());
 		var hpp     = clearNumber($('#hpp').val());
 		var invoice = clearNumber($('#invoice').val());
@@ -48,12 +49,12 @@ function doCount(q, hpp, invoice, fee, persen){
 	$('#profit_2').val(profit_2);
 	$('#jumlah').val(jumlah);
 
-	formatPrice();
+	formatuang();
 }
 
-function formatPrice() 
+function formatuang()
 {
-	$('#q, #hpp, #invoice, #nta, #harga_jual, #up_salling, #profit_1, #fee, #adm_fee, #profit_2, #jumlah').priceFormat({
+	$('.format-uang').priceFormat({
 		centsLimit: 0,
 		clearPrefix: true,
 		prefix: '',
@@ -61,4 +62,5 @@ function formatPrice()
 		allowNegative: true,
 
 	});
+
 }

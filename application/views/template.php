@@ -35,7 +35,7 @@
       <nav class="navbar navbar-static-top">
         <div class="container">
           <div class="navbar-header">
-            <a href="<?php echo base_url() ?>assets/template/adminLTE/index2.html" class="navbar-brand"><b>Penjualan</b>TIKET</a>
+            <a href="<?php echo base_url('penjualan') ?>" class="navbar-brand"><b>Penjualan</b>TIKET</a>
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
               <i class="fa fa-bars"></i>
             </button>
@@ -43,14 +43,15 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="<?php echo base_url() ?>dashboard">Dashboard <span class="sr-only">(current)</span></a></li>
+              <!-- <li class="active"><a href="<?php echo base_url() ?>dashboard">Dashboard <span class="sr-only">(current)</span></a></li> -->
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Penjualan <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li class="divider"></li>
+                  
                   <li><a href="<?php echo base_url() ?>penjualan">Lihat Penjualan</a></li>
-                  <li class="divider"></li>
+                
                   <li><a href="<?php echo base_url() ?>penjualan/tambah_penjualan">Tambah Penjualan</a></li>
+                  <li><a href="<?php echo base_url() ?>penjualan/grafik_penjualan">Grafik Penjualan</a></li>
                 </ul>
               </li>
               <li><a href="<?php echo base_url() ?>laporan">Laporan Harian</a></li>
@@ -99,16 +100,16 @@
 
   <!-- ./wrapper -->
   <!-- jQuery 2.2.3 -->
-  <script src="<?php echo base_url() ?>assets/template/adminLTE/plugins/jQuery/jquery-2.2.3.min.js"></script>
+  <script src="<?php echo base_url() ?>assets/js/jquery-3.2.0.min.js"></script>
   <!-- Bootstrap 3.3.6 -->
   <script src="<?php echo base_url() ?>assets/template/adminLTE/bootstrap/js/bootstrap.min.js"></script>
-  <!-- SlimScroll -->
-  <script src="<?php echo base_url() ?>assets/template/adminLTE/plugins/slimScroll/jquery.slimscroll.min.js"></script>
   <!-- FastClick -->
   <script src="<?php echo base_url() ?>assets/template/adminLTE/plugins/fastclick/fastclick.js"></script>
   <script src="<?php echo base_url() ?>assets/toastr/toastr.min.js"></script>
-
+  <script src="<?php echo base_url() ?>assets/jquerypriceformat/jquery.priceformat.min.js"></script>
+  <script src="<?php echo base_url() ?>assets/js/formatuang.js"></script>
   <?php echo $js; ?>
+  
   <?php echo $this->session->flashdata('pesan'); ?>
   <!-- AdminLTE App -->
   <script src="<?php echo base_url() ?>assets/template/adminLTE/dist/js/app.min.js"></script>

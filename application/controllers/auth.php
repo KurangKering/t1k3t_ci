@@ -1,63 +1,51 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 class Auth extends CI_Controller {
-
 	public function __construct()
 	{
 		parent::__construct();
-
-		$this->load->model('m_auth', 'auth');
-
 	}
 	public function index()
 	{
 		if ($this->session->userdata('logged_in')) {
-			redirect('dashboard');
+			redirect('penjualan');
 		}
 		$this->login();
 	}
-
 	public function login() 
 	{
-
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('auth/login');
 		} else {
-			$validasi = $this->auth->cek_login();
+			$username = $this->input->post('username');
+			$password = $this->input->post('password');
+			$data = array('username' => $username, 'password' => $password);
+			$validasi = $this->Global_CRUD->get_data_single('user', $data);
 			if ($validasi) {
-
 				$array = array(
 					'username' => $validasi->username,
 					'logged_in' => true
 					);
 				$this->session->set_userdata( $array );
-
-				redirect('dashboard');
+				redirect('penjualan');
 			}
-
 			else {
 				$this->session->set_flashdata('pesan', $this->pesanGagal('Username / Password Salah'));
 				redirect('auth');
 			}
-			
 		}
 	}
-
 	public function logout()
 	{
-
 		$this->session->sess_destroy();
 		redirect('auth');
 	}
-
 	private function pesanGagal($message)
 	{
 		$pesan = '
 		<script>
-
 			toastr.options = {
 				"closeButton": false,
 				"debug": false,
@@ -76,14 +64,10 @@ class Auth extends CI_Controller {
 				"hideMethod": "fadeOut"
 			},
 			toastr["error"]("'.$message.'")
-
 		</script>
 		';
-
 		return $pesan;
 	}
-	
 }
-
 /* End of file auth.php */
 /* Location: ./application/controllers/auth.php */

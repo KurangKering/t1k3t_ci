@@ -4,14 +4,13 @@ class Master extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('m_master', 'master');
 	}
 	public function index()
 	{
-		$data['header'] = "Master Data";
-		$this->render_js();
-		$data['data_maskapai'] = $this->master->getAll('maskapai');
-		$data['data_tc']       = $this->master->getAll('tc');
+		$this->render_js_lihat_master();
+		$data['header']        = "Master Data";
+		$data['data_maskapai'] = $this->Global_CRUD->get_data_all('maskapai');
+		$data['data_tc']       = $this->Global_CRUD->get_data_all('tc');
 		$this->template->render('master/v_data_master', $data);
 	}
 	public function tambah_maskapai() 
@@ -29,16 +28,15 @@ class Master extends MY_Controller {
 			$nama = $this->input->post('nama');
 			$status = $this->input->post('status');
 			$arr = array('nama' => $nama, 'status' => $status );
-			$query = $this->master->insert('maskapai', $arr );
+			$query = $this->Global_CRUD->insert_data('maskapai', $arr);
 			$this->session->set_flashdata('pesan', tampil_pesan('success', 'Berhasil Menambah Data Maskapai'));
 			redirect('master');
 		}
 	}
-
 	public function edit_maskapai($id = null) 
 	{
-		$id_maskapai = $id;
-		$data['maskapai'] = $this->master->getByID('maskapai',array('id_maskapai' => $id_maskapai ));
+		$id_maskapai      = $id;
+		$data['maskapai'] = $this->Global_CRUD->get_data_single('maskapai', array('id_maskapai' => $id_maskapai));
 		$this->template->render('master/v_edit_maskapai', $data);
 	}
 	public function do_edit_maskapai()
@@ -47,7 +45,9 @@ class Master extends MY_Controller {
 			show_404();
 		}
 		$id_maskapai = $this->input->post('id_maskapai');
-		$result = $this->master->update_maskapai($id_maskapai);
+		$nama        = $this->input->post('nama');
+		$status      = $this->input->post('status');
+		$result      = $this->Global_CRUD->update_data('maskapai', array('nama' => $nama, 'status' => $status), array('id_maskapai' => $id_maskapai));
 		if ($result) {
 			$this->session->set_flashdata('pesan', tampil_pesan('success', 'Berhasil Merubah data Maskapai'));
 			redirect('master');
@@ -63,7 +63,7 @@ class Master extends MY_Controller {
 		if ($id == null) {
 			redirect('master');
 		}
-		$result = $this->master->delete('maskapai', array('id_maskapai' => $id));
+		$result = $this->Global_CRUD->delete_data('maskapai', array('id_maskapai' => $id));
 		if ($this->db->error()['code']) {
 			$this->session->set_flashdata('pesan', tampil_pesan('error', 'Data Maskapai Telah digunakan pada Transaksi Penjualan'));
 			redirect('master');
@@ -88,7 +88,7 @@ class Master extends MY_Controller {
 			$nama = $this->input->post('nama');
 			$status = $this->input->post('status');
 			$arr = array('nama' => $nama, 'status' => $status );
-			$query = $this->master->insert('tc', $arr );
+			$query = $this->Global_CRUD->insert_data('tc', $arr );
 			$this->session->set_flashdata('pesan', tampil_pesan('success', 'Berhasil Menambah Data TC'));
 			redirect('master');
 		}
@@ -96,7 +96,7 @@ class Master extends MY_Controller {
 	public function edit_tc($id = null) 
 	{
 		$id_tc = $id;
-		$data['tc'] = $this->master->getByID('tc',array('id_tc' => $id_tc ));
+		$data['tc'] = $this->Global_CRUD->get_data_single('tc', array('id_tc' => $id_tc));
 		$this->template->render('master/v_edit_tc', $data);
 	}
 	public function do_edit_tc()
@@ -104,8 +104,10 @@ class Master extends MY_Controller {
 		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 			show_404();
 		}
-		$id_tc = $this->input->post('id_tc');
-		$result = $this->master->update_tc($id_tc);
+		$id_tc  = $this->input->post('id_tc');
+		$nama   = $this->input->post('nama');
+		$status = $this->input->post('status');
+		$result = $this->Global_CRUD->update_data('tc', array('nama' => $nama, 'status' => $status), array('id_tc' => $id_tc));
 		if ($result) {
 			$this->session->set_flashdata('pesan', tampil_pesan('success', 'Berhasil Merubah data tc'));
 			redirect('master');
@@ -121,14 +123,18 @@ class Master extends MY_Controller {
 		if ($id == null) {
 			redirect('master');
 		}
-		$result = $this->master->delete('tc', array('id_tc' => $id));
-		if ($this->db->error()['code'] == 1451) {
-			echo 'Tidak dapat menghapus data master yang telah digunakan pada penjualan';
+		$result = $this->Global_CRUD->delete_data('tc', array('id_tc' => $id));
+		if ($this->db->error()['code']) {
+			$this->session->set_flashdata('pesan', tampil_pesan('error', 'Data Maskapai Telah digunakan pada Transaksi Penjualan'));
+			redirect('master');
 		}
 		else
+		{
+			$this->session->set_flashdata('pesan', tampil_pesan('success', 'Berhasil menghapus data maskapai'));
 			redirect('master');
+		}
 	}
-	private function render_js() 
+	private function render_js_lihat_master() 
 	{
 		$this->template->css_add('assets/template/adminLTE/plugins/datatables/dataTables.bootstrap.css');
 		$this->template->css_add('assets/template/adminLTE/plugins/datatables/extensions/FixedColumns/css/dataTables.fixedColumns.min.css');

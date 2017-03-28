@@ -7,7 +7,7 @@
       </div>
       <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" method="post" action="<?php echo base_url('master/do_edit_maskapai'); ?>">
+      <form autocomplete="off" class="form-horizontal" method="post" action="<?php echo base_url('master/do_edit_maskapai'); ?>">
         <div class="box-body">
         <input type="hidden" name="id_maskapai" value="<?php echo $maskapai->id_maskapai ?>">
           <div class="form-group">

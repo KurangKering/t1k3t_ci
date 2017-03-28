@@ -7,7 +7,7 @@
       </div>
       <!-- /.box-header -->
       <!-- form start -->
-      <form class="form-horizontal" method="post" action="<?php echo base_url('master/do_tambah_tc'); ?>">
+      <form autocomplete="off" class="form-horizontal" method="post" action="<?php echo base_url('master/do_tambah_tc'); ?>">
         <div class="box-body">
           <div class="form-group">
             <label for="nama" class="col-md-4 control-label">Nama TC</label>

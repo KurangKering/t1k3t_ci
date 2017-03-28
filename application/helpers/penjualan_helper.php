@@ -1,5 +1,4 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-
 if ( ! function_exists('persen_converter'))
 {
 	function persen_converter($var)
@@ -7,7 +6,6 @@ if ( ! function_exists('persen_converter'))
 		return (float) $var * 100 . ' %';
 	}   
 }
-
 if ( ! function_exists('rupiah_converter'))
 {
 	function rupiah_converter($var)
@@ -19,16 +17,13 @@ if ( ! function_exists('rupiah_converter'))
 		return "Rp ".number_format($angka, $jumlah_desimal, $pemisah_desimal, $pemisah_ribuan);
 	}   
 }
-
 if ( ! function_exists('ekstrak_angka'))
 {
 	function ekstrak_angka($var)
 	{
-		
 		return preg_replace('/\D/', '', $var);
 	}   
 }
-
 if ( ! function_exists('tampil_bulan'))
 {
 	function tampil_bulan ($x) {
@@ -38,7 +33,6 @@ if ( ! function_exists('tampil_bulan'))
 		return $bulan[$x];
 	}
 }
-
 if (! function_exists('tampil_pesan')) {
 	function tampil_pesan($tipe, $pesan)
 	{
@@ -47,7 +41,6 @@ if (! function_exists('tampil_pesan')) {
 		}
 		$sql = '
 		<script>
-
 			toastr.options = {
 				"closeButton": false,
 				"debug": false,
@@ -66,10 +59,23 @@ if (! function_exists('tampil_pesan')) {
 				"hideMethod": "fadeOut"
 			},
 			toastr["'.$tipe.'"]("'.$pesan.'")
-
 		</script>
 		';
-
 		return $sql;
+	}
+}
+if (! function_exists('generate_date')) {
+	function generate_date($tahun, $bulan)
+	{
+		$list=array();
+		$month = $bulan;
+		$year = $tahun;
+		for($d=1; $d<=31; $d++)
+		{
+			$time=mktime(12, 0, 0, $month, $d, $year);          
+			if (date('m', $time)==$month)       
+				$list[]=date('Y-m-d', $time);
+		}
+		return $list;
 	}
 }
