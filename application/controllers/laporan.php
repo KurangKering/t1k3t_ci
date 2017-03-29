@@ -66,38 +66,51 @@ class Laporan extends MY_Controller {
 		// 	}
 		// }
 	}
-	public function testt () {
-		$laporan = $this->laporan->getLaporan('2017', '03');
-		$data_laporan = false;
-		$currdate = false;
-		$maskapai = array('Air Asia', 'Citilink', 'Garuda', 'Merpati');
-		$new_laporan = false;
-		foreach ($laporan as $index => $penjualan) {
-			if ($penjualan['tanggal'] != $currdate) {
-				$currdate = $penjualan['tanggal'];
-			}
-			$data_laporan[$penjualan['tanggal']][] = array('maskapai' => $penjualan['nama_maskapai'], 'jumlah' =>  $penjualan['jumlah']);
-		}
-		
-		foreach ($data_laporan as $tanggal => $data) {
-			for ($i=0; $i < sizeof($maskapai); $i++) { 
-				$new_laporan[$tanggal][$i] = array('maskapai' => $maskapai[$i], 'jumlah' => '0'); 
-			}
-		}
-		foreach ($new_laporan as $tanggal => $data) {
-			foreach ($data as $index => $data__) {
-				foreach ($data_laporan[$tanggal] as $key => $value) {
-					if ($value['maskapai'] == $data__['maskapai']) {
-						$new_laporan[$tanggal][$index]['jumlah'] = $value['jumlah'];
-					}
-				}
-			}
-		}
+	// public function testt () {
+	// 	$laporan = $this->laporan->getLaporan('2017', '03');
+	// 	$data_laporan = false;
+	// 	$currdate = false;
+	// 	$maskapai = $this->laporan->get_nama_maskapai();
+	// 	$new_laporan = false;
+	// 	foreach ($laporan as $index => $penjualan) {
+	// 		if ($penjualan['tanggal'] != $currdate) {
+	// 			$currdate = $penjualan['tanggal'];
+	// 		}
+	// 		$data_laporan[$penjualan['tanggal']][] = array('maskapai' => $penjualan['nama_maskapai'], 'jumlah' =>  $penjualan['jumlah']);
+	// 	}
 
-		echo '<pre>';
-		print_r($new_laporan);
-		echo '<pre>';
+	// 	foreach ($data_laporan as $tanggal => $data) {
+	// 		for ($i=0; $i < sizeof($maskapai); $i++) { 
+	// 			$new_laporan[$tanggal][$i] = array('maskapai' => $maskapai[$i], 'jumlah' => '0'); 
+	// 		}
+	// 	}
+	// 	foreach ($new_laporan as $tanggal => $data) {
+	// 		foreach ($data as $index => $data__) {
+	// 			foreach ($data_laporan[$tanggal] as $key => $value) {
+	// 				if ($value['maskapai'] == $data__['maskapai']) {
+	// 					$new_laporan[$tanggal][$index]['jumlah'] = $value['jumlah'];
+	// 					break;
+	// 				}
+	// 			}
+	// 		}
+	// 	}
 
+	// 	echo '<pre>';
+	// 	print_r($new_laporan);
+	// 	echo '<pre>';
+
+	// }
+	public function testt ($tahun, $bulan) {
+		$data['data_laporan'] = $this->laporan->get_data_laporan($tahun, $bulan);
+		$data['maskapai'] = $this->laporan->get_nama_maskapai();
+		$this->load->view('laporan/v_tampil_laporan', $data);
+	}
+
+	public function dummy($tahun, $bulan) {
+		$result = $this->laporan->get_data_laporan($tahun, $bulan);
+		echo '<pre>';
+		print_r($result);
+		echo '</pre>';
 	}
 }
 /* End of file laporan.php */
