@@ -67,6 +67,37 @@ class Laporan extends MY_Controller {
 		// }
 	}
 	public function testt () {
+		$laporan = $this->laporan->getLaporan('2017', '03');
+		$data_laporan = false;
+		$currdate = false;
+		$maskapai = array('Air Asia', 'Citilink', 'Garuda', 'Merpati');
+		$new_laporan = false;
+		foreach ($laporan as $index => $penjualan) {
+			if ($penjualan['tanggal'] != $currdate) {
+				$currdate = $penjualan['tanggal'];
+			}
+			$data_laporan[$penjualan['tanggal']][] = array('maskapai' => $penjualan['nama_maskapai'], 'jumlah' =>  $penjualan['jumlah']);
+		}
+		
+		foreach ($data_laporan as $tanggal => $data) {
+			for ($i=0; $i < sizeof($maskapai); $i++) { 
+				$new_laporan[$tanggal][$i] = array('maskapai' => $maskapai[$i], 'jumlah' => '0'); 
+			}
+		}
+		foreach ($new_laporan as $tanggal => $data) {
+			foreach ($data as $index => $data__) {
+				foreach ($data_laporan[$tanggal] as $key => $value) {
+					if ($value['maskapai'] == $data__['maskapai']) {
+						$new_laporan[$tanggal][$index]['jumlah'] = $value['jumlah'];
+					}
+				}
+			}
+		}
+
+		echo '<pre>';
+		print_r($new_laporan);
+		echo '<pre>';
+
 	}
 }
 /* End of file laporan.php */
