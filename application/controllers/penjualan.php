@@ -144,11 +144,11 @@ class Penjualan extends MY_Controller {
 		$this->template->js_add('
 			$(function () {
 				var table_penjualan = $("#table_penjualan").DataTable({
-					"order": [],
+					"order": [[2, \'desc\']],
 					"scrollX": true,
 					fixedColumns: {
 						leftColumns: 1,
-						rightColumns: 1,
+						rightColumns: 2,
 					},
 					autoWidth: false,
 					columnDefs: [

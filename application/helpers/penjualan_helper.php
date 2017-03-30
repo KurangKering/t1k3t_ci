@@ -64,18 +64,3 @@ if (! function_exists('tampil_pesan')) {
 		return $sql;
 	}
 }
-if (! function_exists('generate_date')) {
-	function generate_date($tahun, $bulan)
-	{
-		$list=array();
-		$month = $bulan;
-		$year = $tahun;
-		for($d=1; $d<=31; $d++)
-		{
-			$time=mktime(12, 0, 0, $month, $d, $year);          
-			if (date('m', $time)==$month)       
-				$list[]=date('Y-m-d', $time);
-		}
-		return $list;
-	}
-}

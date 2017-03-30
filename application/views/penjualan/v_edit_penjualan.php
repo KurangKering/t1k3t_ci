@@ -156,14 +156,14 @@
 								<label>HPP</label>
 								<div class="input-group">	
 									<span class="input-group-addon">Rp</span>	
-									<input  value="<?php echo isset($penjualan->hpp) ? set_value("hpp", $penjualan->hpp) : set_value('hpp'); ?>" type="text" id="hpp" name="hpp"  required class="input-change form-control">
+									<input  value="<?php echo isset($penjualan->hpp) ? set_value("hpp", $penjualan->hpp) : set_value('hpp'); ?>" type="text" id="hpp" name="hpp"  required class="format-uang input-change form-control">
 								</div>
 							</div>
 							<div class="form-group">
 								<label>Invoice</label>
 								<div class="input-group">	
 									<span class="input-group-addon">Rp</span>	
-									<input  value="<?php echo isset($penjualan->invoice) ? set_value("invoice", $penjualan->invoice) : set_value('invoice'); ?>" type='text' id="invoice" name="invoice"  required class="input-change form-control">
+									<input  value="<?php echo isset($penjualan->invoice) ? set_value("invoice", $penjualan->invoice) : set_value('invoice'); ?>" type='text' id="invoice" name="invoice"  required class="format-uang input-change form-control">
 								</div>
 							</div>
 							<div class="form-group">
