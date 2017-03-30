@@ -60,15 +60,16 @@ CREATE TABLE IF NOT EXISTS `maskapai` (
   `status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
   PRIMARY KEY (`id_maskapai`),
   UNIQUE KEY `nama` (`nama`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.maskapai: ~4 rows (approximately)
+-- Dumping data for table tiket.maskapai: ~5 rows (approximately)
 /*!40000 ALTER TABLE `maskapai` DISABLE KEYS */;
 INSERT INTO `maskapai` (`id_maskapai`, `nama`, `status`) VALUES
-	(1, 'Air Asia', 'ACTIVE'),
-	(3, 'Garuda', 'ACTIVE'),
-	(4, 'Citilink', 'INACTIVE'),
-	(5, 'Cicak', 'ACTIVE');
+	(1, 'AIR ASIA', 'ACTIVE'),
+	(3, 'CITILINK', 'ACTIVE'),
+	(4, 'LION', 'ACTIVE'),
+	(5, 'BATIK', 'ACTIVE'),
+	(6, 'SRIWIJAYA', 'ACTIVE');
 /*!40000 ALTER TABLE `maskapai` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.penjualan
@@ -90,19 +91,20 @@ CREATE TABLE IF NOT EXISTS `penjualan` (
   CONSTRAINT `FK_penjualan_tc` FOREIGN KEY (`id_tc`) REFERENCES `tc` (`id_tc`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.penjualan: ~10 rows (approximately)
+-- Dumping data for table tiket.penjualan: ~11 rows (approximately)
 /*!40000 ALTER TABLE `penjualan` DISABLE KEYS */;
 INSERT INTO `penjualan` (`booking_code`, `id_tc`, `id_maskapai`, `tanggal`, `hpp`, `persen`, `invoice`, `q`, `fee`, `tanggal_insert`) VALUES
-	('1', 1, 1, '2017-03-26', 20000, 0.0500, 700000, 1, 10000, '2017-03-26 22:04:56'),
-	('10231', 1, 1, '2017-01-10', 12412, 0.0500, 1213131, 1, 10000, '2017-03-28 12:28:32'),
-	('112e1', 1, 1, '0000-00-00', 634100, 0.0500, 720000, 1, 10000, '2017-03-28 12:28:00'),
-	('123123', 1, 1, '0000-00-00', 131312312, 0.0500, 1312, 1, 10000, '2017-03-28 12:28:56'),
-	('2', 1, 4, '2017-03-26', 200000, 0.0500, 600000, 1, 10000, '2017-03-26 22:05:08'),
-	('3', 1, 1, '2017-03-27', 60000, 0.0500, 500000, 1, 10000, '2017-03-26 22:06:19'),
-	('4', 4, 3, '2017-03-28', 700000, 0.0050, 400000, 1, 10000, '2017-03-26 22:06:33'),
-	('5', 1, 1, '2017-03-26', 800000, 0.0050, 400000, 1, 10000, '2017-03-26 22:18:28'),
-	('6', 1, 1, '2017-04-26', 500000, 0.0500, 500000, 1, 10000, '2017-03-26 23:48:24'),
-	('7', 1, 1, '2018-03-28', 900000, 0.0050, 60000, 1, 10000, '2017-03-28 10:59:48');
+	('BOVNVR', 1, 4, '2016-11-24', 707700, 0.0500, 821000, 1, 10000, '2017-03-29 18:37:13'),
+	('ED3245', 1, 1, '2016-11-01', 839700, 0.0500, 1024000, 1, 10000, '2017-03-29 18:22:52'),
+	('FRCOKW', 1, 4, '2016-11-20', 561300, 0.0500, 754500, 1, 10000, '2017-03-29 18:27:49'),
+	('J9QUNW', 1, 3, '2016-11-08', 634100, 0.0500, 754100, 1, 10000, '2017-03-29 18:25:19'),
+	('JHHLXI', 1, 4, '2016-11-16', 403400, 0.0500, 613000, 1, 10000, '2017-03-29 18:27:23'),
+	('KFKNXP', 1, 4, '2016-11-22', 241100, 0.0500, 400000, 1, 10000, '2017-03-29 18:35:10'),
+	('MLVTTK', 1, 5, '2016-11-22', 638500, 0.0500, 755000, 1, 10000, '2017-03-29 18:40:25'),
+	('MTMXAT', 1, 4, '2016-11-29', 403400, 0.0500, 507000, 1, 10000, '2017-03-29 18:38:09'),
+	('TIBJLI', 1, 4, '2016-11-03', 6555600, 0.0500, 6855000, 1, 10000, '2017-03-29 18:25:58'),
+	('UTOAOI', 1, 4, '2016-11-24', 293900, 0.0500, 342500, 1, 10000, '2017-03-29 18:37:34'),
+	('ZVDZFH', 1, 4, '2016-11-20', 830600, 0.0500, 1012000, 1, 10000, '2017-03-29 18:34:38');
 /*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.tc
@@ -112,13 +114,13 @@ CREATE TABLE IF NOT EXISTS `tc` (
   `status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
   PRIMARY KEY (`id_tc`),
   UNIQUE KEY `nama` (`nama`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.tc: ~2 rows (approximately)
+-- Dumping data for table tiket.tc: ~1 rows (approximately)
 /*!40000 ALTER TABLE `tc` DISABLE KEYS */;
 INSERT INTO `tc` (`id_tc`, `nama`, `status`) VALUES
-	(1, 'Bahlul', 'INACTIVE'),
-	(4, 'Budi', 'ACTIVE');
+	(1, 'Meimei', 'ACTIVE'),
+	(2, 'Budi', 'ACTIVE');
 /*!40000 ALTER TABLE `tc` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.user

@@ -12,6 +12,7 @@ class Laporan extends MY_Controller {
 			'Mei','Juni','Juli','Agustus',
 			'September','Oktober','November','Desember');
 		$data['bulan'] = $bulan;
+		$this->render_js_laporan();
 		$this->template->render('laporan/v_laporan', $data);
 	}
 	public function tampil_laporan($tahun = null, $bulan = null)
@@ -100,18 +101,52 @@ class Laporan extends MY_Controller {
 	// 	echo '<pre>';
 
 	// }
-	public function testt ($tahun, $bulan) {
-		$data['data_laporan'] = $this->laporan->get_data_laporan($tahun, $bulan);
+	public function generate_laporan ($tahun = null, $bulan = null) {
 		$data['maskapai'] = $this->laporan->get_nama_maskapai();
-		$this->load->view('laporan/v_tampil_laporan', $data);
+		$data['tahun'] = $tahun;
+		$data['bulan'] = tampil_bulan($bulan);
+		$data_laporan = $this->laporan->get_data_laporan($tahun, $bulan);
+		if ($data_laporan) {
+			$data['data_laporan'] = $data_laporan;
+
+			$this->load->view('laporan/v_tampil_laporan', $data);
+		}
+		
+	}
+
+	public function cetak ($tahun, $bulan) 
+	{
+		ob_start();  
+		$this->testt($tahun, $bulan);  
+		$html = ob_get_contents();       
+		ob_end_clean();                
+		require_once('./assets/-html2pdf/html2pdf.class.php');    
+		$pdf = new HTML2PDF('P','Legal','en');   
+		$pdf->pdf->SetDisplayMode('fullwidth', 'OneColumn'); 
+		$pdf->WriteHTML($html);    
+		$pdf->Output('Data Siswa.pdf', 'D');
 	}
 
 	public function dummy($tahun, $bulan) {
+		//error_reporting(E_ALL ^ E_NOTICE);
 		$result = $this->laporan->get_data_laporan($tahun, $bulan);
 		echo '<pre>';
 		print_r($result);
 		echo '</pre>';
 	}
+
+	private function render_js_laporan()
+	{
+		$this->template->js_add('
+			$(function(){
+				$(\'#btn-laporan\').click(function () {
+					var bulan = $(\'#bulan-laporan\').val() == 0 ? new Date().getMonth() : $(\'#bulan-laporan\').val();
+					var tahun = $(\'#tahun-laporan\').val() == null ? new Date().getFullYear() : $(\'#tahun-laporan\').val();
+					window.location ="'.base_url('laporan/generate_laporan/').'" + tahun +"/"+ bulan;
+				});
+			});', 'embed');
+	}
+
 }
 /* End of file laporan.php */
-/* Location: ./application/controllers/laporan.php */
+	/* Location: ./application/controllers/laporan.php */
