@@ -72,6 +72,37 @@ INSERT INTO `maskapai` (`id_maskapai`, `nama`, `status`) VALUES
 	(6, 'SRIWIJAYA', 'ACTIVE');
 /*!40000 ALTER TABLE `maskapai` ENABLE KEYS */;
 
+-- Dumping structure for table tiket.tc
+CREATE TABLE IF NOT EXISTS `tc` (
+  `id_tc` int(11) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(50) NOT NULL,
+  `status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
+  PRIMARY KEY (`id_tc`),
+  UNIQUE KEY `nama` (`nama`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- Dumping data for table tiket.tc: ~1 rows (approximately)
+/*!40000 ALTER TABLE `tc` DISABLE KEYS */;
+INSERT INTO `tc` (`id_tc`, `nama`, `status`) VALUES
+	(1, 'Meimei', 'ACTIVE'),
+	(2, 'Budi', 'ACTIVE');
+/*!40000 ALTER TABLE `tc` ENABLE KEYS */;
+
+-- Dumping structure for table tiket.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `username` varchar(30) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table tiket.user: ~1 rows (approximately)
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`username`, `password`) VALUES
+	('admin', 'admin');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+
+
 -- Dumping structure for table tiket.penjualan
 CREATE TABLE IF NOT EXISTS `penjualan` (
   `booking_code` varchar(10) NOT NULL,
@@ -107,34 +138,7 @@ INSERT INTO `penjualan` (`booking_code`, `id_tc`, `id_maskapai`, `tanggal`, `hpp
 	('ZVDZFH', 1, 4, '2016-11-20', 830600, 0.0500, 1012000, 1, 10000, '2017-03-29 18:34:38');
 /*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
 
--- Dumping structure for table tiket.tc
-CREATE TABLE IF NOT EXISTS `tc` (
-  `id_tc` int(11) NOT NULL AUTO_INCREMENT,
-  `nama` varchar(50) NOT NULL,
-  `status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
-  PRIMARY KEY (`id_tc`),
-  UNIQUE KEY `nama` (`nama`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Dumping data for table tiket.tc: ~1 rows (approximately)
-/*!40000 ALTER TABLE `tc` DISABLE KEYS */;
-INSERT INTO `tc` (`id_tc`, `nama`, `status`) VALUES
-	(1, 'Meimei', 'ACTIVE'),
-	(2, 'Budi', 'ACTIVE');
-/*!40000 ALTER TABLE `tc` ENABLE KEYS */;
-
--- Dumping structure for table tiket.user
-CREATE TABLE IF NOT EXISTS `user` (
-  `username` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
-  PRIMARY KEY (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table tiket.user: ~1 rows (approximately)
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`username`, `password`) VALUES
-	('admin', 'admin');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for view tiket.view_penjualan
 -- Creating temporary table to overcome VIEW dependency errors
