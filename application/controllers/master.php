@@ -142,7 +142,7 @@ class Master extends MY_Controller {
 		$this->template->js_add('assets/template/adminLTE/plugins/datatables/dataTables.bootstrap.min.js');
 		$this->template->js_add('assets/template/adminLTE/plugins/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.min.js');
 		$this->template->js_add('
-			$(document).ready(function() {
+			//$(document).ready(function() {
 				var t = $("#table-maskapai").DataTable( {
 					"columnDefs": [ {
 						"searchable": false,
@@ -181,7 +181,7 @@ class Master extends MY_Controller {
 				$(\'#confirm-delete-tc\').on(\'show.bs.modal\', function(e) {
 					$(this).find(\'.btn-ok\').attr(\'href\', $(e.relatedTarget).data(\'href\'));
 				});
-			} );'
+			//} );'
 			,'embed');
 	}
 }

@@ -142,7 +142,7 @@ class Penjualan extends MY_Controller {
 		$this->template->js_add('assets/datatables/media/js/dataTables.bootstrap.min.js');
 		$this->template->js_add('assets/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.min.js');
 		$this->template->js_add('
-			$(function () {
+			//$(function () {
 				var table_penjualan = $("#table_penjualan").DataTable({
 					"order": [[2, \'desc\']],
 					"scrollX": true,
@@ -181,7 +181,7 @@ class Penjualan extends MY_Controller {
 				$(\'#confirm-delete-penjualan\').on(\'show.bs.modal\', function(e) {
 					$(this).find(\'.btn-ok\').attr(\'href\', $(e.relatedTarget).data(\'href\'));
 				});
-			});
+			//});
 			', 'embed');
 	}
 	public function grafik_penjualan($tahun = null, $id_maskapai = null)
