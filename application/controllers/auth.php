@@ -25,8 +25,11 @@ class Auth extends CI_Controller {
 			$validasi = $this->Global_CRUD->get_data_single('user', $data);
 			if ($validasi) {
 				$array = array(
+					'id' => $validasi->id,
 					'username' => $validasi->username,
+					'role_name' => $validasi->role_name,
 					'logged_in' => true
+
 					);
 				$this->session->set_userdata( $array );
 				redirect('penjualan');

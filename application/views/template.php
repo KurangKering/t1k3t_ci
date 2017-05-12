@@ -1,4 +1,6 @@
-
+<?php 
+$isAdmin = $this->session->userdata('role_name') == 'admin' && $this->session->userdata('role_name') != 'manager';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,15 +49,19 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Penjualan <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  
+
                   <li><a href="<?php echo base_url() ?>penjualan">Lihat Penjualan</a></li>
-                
-                  <li><a href="<?php echo base_url() ?>penjualan/tambah_penjualan">Tambah Penjualan</a></li>
+                  <?php if ($isAdmin): ?>
+                    <li><a href="<?php echo base_url() ?>penjualan/tambah_penjualan">Tambah Penjualan</a></li>
+                  <?php endif ?>
+
                   <li><a href="<?php echo base_url() ?>penjualan/grafik_penjualan">Grafik Penjualan</a></li>
                 </ul>
               </li>
               <li><a href="<?php echo base_url() ?>laporan">Laporan Harian</a></li>
+               <?php if ($isAdmin): ?>
               <li><a href="<?php echo base_url() ?>master">Data Master</a></li>
+            <?php endif ?>
               <li><a href="<?php echo base_url() ?>konfigurasi">Konfigurasi</a></li>
             </ul>
           </div>
@@ -63,7 +69,7 @@
           <!-- Navbar Right Menu -->
           <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-              <li><a href="<?php echo base_url() ?>auth/logout"><i class="fa fa-key"></i> Logout</a></li>
+              <li><a href="<?php echo base_url() ?>auth/logout"><?php echo $this->session->userdata('username'); ?> <i class="fa fa-sign-out"></i> </a></li>
               <!-- User Account Menu -->
             </ul>
           </div>

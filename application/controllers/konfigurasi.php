@@ -7,6 +7,7 @@ class Konfigurasi extends MY_Controller {
 	}
 	public function index()
 	{
+
 		$data['random_number'] = sha1(date("Y-m-d-H-i-s"));
 		$data['header'] = "Konfigurasi";
 		$data['konfig'] = $this->Global_CRUD->get_data_all('konfig')[0];
@@ -14,12 +15,13 @@ class Konfigurasi extends MY_Controller {
 	}
 	public function update_konfig()
 	{
+
 		$new_fee       = ekstrak_angka($this->input->post('fee'));
 		$new_persen    = ekstrak_angka($this->input->post('persen'));
 		$new_pass      = $this->input->post('new_pass');
 		$new_pass_conf = $this->input->post('new_pass_confirm');
 		$konfig_awal   = $this->Global_CRUD->get_data_all('konfig')[0];
-		if ($konfig_awal->fee != $new_fee || ($konfig_awal->persen * 100) != floatval($new_persen))
+		if ($this->isAdmin && ($konfig_awal->fee != $new_fee || ($konfig_awal->persen * 100) != floatval($new_persen)))
 		{
 			$sql   = 'UPDATE konfig SET ';
 			$data  = array();
@@ -52,8 +54,8 @@ class Konfigurasi extends MY_Controller {
 				}
 				else
 				{
-					$sql = 'UPDATE user SET password = ?';
-					$query = $this->db->query($sql, $new_pass);
+					$sql = 'UPDATE user SET password = ? WHERE id = ?';
+					$query = $this->db->query($sql, array($new_pass, $this->session->userdata('id')));
 					$this->session->set_flashdata('pesan', $this->session->flashdata('pesan') . tampil_pesan('success', 'Berhasil Merubah Data Password'));
 				}
 			}

@@ -41,7 +41,10 @@
             <th>Profit</th>
             <th>Nama TC</th>
             <th>Jumlah</th>
+            <?php if ($isAdmin): ?>
             <th>Action</th>
+            <?php endif ?>
+            
           </tr>
         </thead>
         <tbody>
@@ -63,8 +66,12 @@
               <td><?php echo  rupiah_converter($jual->profit_2); ?></td>
               <td><?php echo  $jual->nama_tc; ?></td>
               <td><?php echo  rupiah_converter($jual->jumlah); ?></td>
-              <td><a class="btn btn-xs btn-warning" href="<?php echo base_url('penjualan/edit_penjualan/'. $jual->booking_code); ?>">Edit</a> <a href="#" class="btn btn-xs btn-danger" data-href="<?php echo base_url('penjualan/hapus_penjualan/'.$jual->booking_code); ?>"  data-toggle="modal" data-target="#confirm-delete-penjualan">Hapus</a>
-              </td>
+              <?php if ($isAdmin): ?>
+
+                <td><a class="btn btn-xs btn-warning" href="<?php echo base_url('penjualan/edit_penjualan/'. $jual->booking_code); ?>">Edit</a> <a href="#" class="btn btn-xs btn-danger" data-href="<?php echo base_url('penjualan/hapus_penjualan/'.$jual->booking_code); ?>"  data-toggle="modal" data-target="#confirm-delete-penjualan">Hapus</a>
+                </td>
+              <?php endif ?>
+
             </tr>
           <?php endforeach ?>
         </tbody>

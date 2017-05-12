@@ -5,6 +5,7 @@ class Penjualan extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+
 	}
 	public function index()
 	{
@@ -12,6 +13,8 @@ class Penjualan extends MY_Controller {
 	}
 	public function lihat_penjualan($id_maskapai = null)
 	{
+		$data['isAdmin'] = $this->isAdmin;
+		
 		$where;
 		if ($id_maskapai == 0 || $id_maskapai == null) {
 			$where = array();
@@ -29,6 +32,9 @@ class Penjualan extends MY_Controller {
 	}
 	public function tambah_penjualan()
 	{
+		if (!$this->isAdmin) {
+			redirect('penjualan/lihat_penjualan','refresh');
+		}
 		$data['header']   = "Tambah Penjualan";
 		$data['konfig']   = $this->Global_CRUD->get_data_all('konfig')[0];
 		$data['maskapai'] = $this->Global_CRUD->get_data_where('maskapai', array('status' => 'ACTIVE'));
@@ -41,6 +47,9 @@ class Penjualan extends MY_Controller {
 	}
 	public function do_tambah_penjualan()
 	{
+		if (!$this->isAdmin) {
+			redirect('penjualan/lihat_penjualan','refresh');
+		}
 		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 			show_404();
 		}
@@ -76,6 +85,9 @@ class Penjualan extends MY_Controller {
 	}
 	public function edit_penjualan($id)
 	{
+		if (!$this->isAdmin) {
+			redirect('penjualan/lihat_penjualan','refresh');
+		}
 		$data['header']    = "Edit Penjualan";
 		$data['maskapai']  = $this->Global_CRUD->get_data_all('maskapai');
 		$data['konfig']    = $this->Global_CRUD->get_data_all('konfig')[0];
@@ -89,6 +101,9 @@ class Penjualan extends MY_Controller {
 	}
 	public function do_edit_penjualan()
 	{
+		if (!$this->isAdmin) {
+			redirect('penjualan/lihat_penjualan','refresh');
+		}
 		if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 			show_404();
 		}
@@ -121,6 +136,9 @@ class Penjualan extends MY_Controller {
 	}
 	public function hapus_penjualan($id)
 	{
+		if (!$this->isAdmin) {
+			redirect('penjualan/lihat_penjualan','refresh');
+		}
 		if ($id == null) {
 			redirect('master');
 		}
@@ -136,6 +154,12 @@ class Penjualan extends MY_Controller {
 	}
 	private function render_js_lihat_penjualan()
 	{
+		
+		$btn_action = '';
+		if ($this->isAdmin) {
+			$btn_action = '{ width: \'60px\', targets: 16, sClass: "text-center" }';
+		}
+
 		$this->template->css_add('assets/datatables/media/css/dataTables.bootstrap.min.css');
 		$this->template->css_add('assets/datatables/extensions/FixedColumns/css/fixedColumns.bootstrap.min.css');
 		$this->template->js_add('assets/datatables/media/js/jquery.dataTables.min.js');
@@ -143,44 +167,44 @@ class Penjualan extends MY_Controller {
 		$this->template->js_add('assets/datatables/extensions/FixedColumns/js/dataTables.fixedColumns.min.js');
 		$this->template->js_add('
 			//$(function () {
-				var table_penjualan = $("#table_penjualan").DataTable({
-					"order": [[2, \'desc\']],
-					"scrollX": true,
-					fixedColumns: {
-						leftColumns: 1,
-						rightColumns: 2,
-					},
-					autoWidth: false,
-					columnDefs: [
-					{ width: \'100px\', targets: 0 , sClass: "text-center"},
-					{ width: \'100px\', targets: 1 },
-					{ width: \'100px\', targets: 2 },
-					{ width: \'100px\', targets: 3 },
-					{ width: \'100px\', targets: 4 },
-					{ width: \'100px\', targets: 5 },
-					{ width: \'100px\', targets: 6 },
-					{ width: \'100px\', targets: 7 },
-					{ width: \'100px\', targets: 8 },
-					{ width: \'100px\', targets: 9 },
-					{ width: \'100px\', targets: 10 },
-					{ width: \'100px\', targets: 11 },
-					{ width: \'100px\', targets: 12 },
-					{ width: \'100px\', targets: 13 },
-					{ width: \'100px\', targets: 14 },
-					{ width: \'100px\', targets: 15 },
-					{ width: \'60px\', targets: 16, sClass: "text-center" }
-					],
-				});
-				$(\'#dynamic_select\').on(\'change\', function () {
-					var url = $(this).val(); // get selected value
-					if (url) { // require a URL
-						window.location = url;
-					}
-					return false;
-				});
-				$(\'#confirm-delete-penjualan\').on(\'show.bs.modal\', function(e) {
-					$(this).find(\'.btn-ok\').attr(\'href\', $(e.relatedTarget).data(\'href\'));
-				});
+			var table_penjualan = $("#table_penjualan").DataTable({
+				"order": [[2, \'desc\']],
+				"scrollX": true,
+				fixedColumns: {
+					leftColumns: 1,
+					rightColumns: 2,
+				},
+				autoWidth: false,
+				columnDefs: [
+				{ width: \'100px\', targets: 0 , sClass: "text-center"},
+				{ width: \'100px\', targets: 1 },
+				{ width: \'100px\', targets: 2 },
+				{ width: \'100px\', targets: 3 },
+				{ width: \'100px\', targets: 4 },
+				{ width: \'100px\', targets: 5 },
+				{ width: \'100px\', targets: 6 },
+				{ width: \'100px\', targets: 7 },
+				{ width: \'100px\', targets: 8 },
+				{ width: \'100px\', targets: 9 },
+				{ width: \'100px\', targets: 10 },
+				{ width: \'100px\', targets: 11 },
+				{ width: \'100px\', targets: 12 },
+				{ width: \'100px\', targets: 13 },
+				{ width: \'100px\', targets: 14 },
+				{ width: \'100px\', targets: 15 },'.
+				$btn_action .'
+				],
+			});
+			$(\'#dynamic_select\').on(\'change\', function () {
+				var url = $(this).val(); // get selected value
+				if (url) { // require a URL
+					window.location = url;
+				}
+				return false;
+			});
+			$(\'#confirm-delete-penjualan\').on(\'show.bs.modal\', function(e) {
+				$(this).find(\'.btn-ok\').attr(\'href\', $(e.relatedTarget).data(\'href\'));
+			});
 			//});
 			', 'embed');
 	}
