@@ -42,7 +42,7 @@ $isAdmin = $this->session->userdata('role_name') == 'admin' && $this->session->u
     </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-2 col-md-offset-5">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -53,4 +53,4 @@ $isAdmin = $this->session->userdata('role_name') == 'admin' && $this->session->u
             
         </div>
     </div>
-</div>
+</div> -->

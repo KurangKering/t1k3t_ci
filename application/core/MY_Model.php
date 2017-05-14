@@ -5,34 +5,21 @@ class MY_Model extends CI_Model {
 	{
 		parent::__construct();
 	}
-
 	public function insert_data($table, $data)
 	{
 		return $this->db->insert($table, $data);
 	}
 	public function get_data_all($table)
 	{
-		$result = $this->db->get($table);
-		if ($result->num_rows() > 0 ) {
-			return $result->result();
-		}
-		return array();
+		return $this->db->get($table) ? $this->db->get($table)->result() : '';
 	}
 	public function get_data_where($table, $where)
 	{
-		$result = $this->db->get_where($table, $where);
-		if ($result->num_rows() > 0 ) {
-			return $result->result();
-		}
-		return array();
+		return $this->db->get_where($table, $where) ? $this->db->get_where($table, $where)->result() : '';
 	}
 	public function get_data_single($table, $where)
 	{
-		$result = $this->db->get_where($table, $where);
-		if ($result->num_rows() > 0 ) {
-			return $result->row();
-		}
-		return array();
+		return $this->db->get_where($table, $where) ? $this->db->get_where($table, $where)->row() : '';
 	}
 	public function update_data($table, $set, $where)
 	{
@@ -43,10 +30,8 @@ class MY_Model extends CI_Model {
 	}
 	public function delete_data($table, $where)
 	{
-		$result = $this->db->delete($table, $where);
-		return $result;
+		return $this->db->delete($table, $where);
 	}
-	
 }
 /* End of file MY_Model.php */
 /* Location: ./application/core/MY_Model.php */

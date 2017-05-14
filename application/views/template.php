@@ -59,65 +59,69 @@ $isAdmin = $this->session->userdata('role_name') == 'admin' && $this->session->u
                 </ul>
               </li>
               <li><a href="<?php echo base_url() ?>laporan">Laporan Harian</a></li>
-               <?php if ($isAdmin): ?>
-              <li><a href="<?php echo base_url() ?>master">Data Master</a></li>
-            <?php endif ?>
+              <?php if ($isAdmin): ?>
+                <li><a href="<?php echo base_url() ?>master">Data Master</a></li>
+              <?php endif ?>
               <li><a href="<?php echo base_url() ?>konfigurasi">Konfigurasi</a></li>
-            </ul>
-          </div>
-          <!-- /.navbar-collapse -->
-          <!-- Navbar Right Menu -->
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <li><a href="<?php echo base_url() ?>auth/logout"><?php echo $this->session->userdata('username'); ?> <i class="fa fa-sign-out"></i> </a></li>
-              <!-- User Account Menu -->
-            </ul>
-          </div>
-          <!-- /.navbar-custom-menu -->
+              <?php if ($isAdmin): ?>
+               <li><a href="<?php echo base_url() ?>users">Users</a></li>
+             <?php endif ?>
+             
+           </ul>
+         </div>
+         <!-- /.navbar-collapse -->
+         <!-- Navbar Right Menu -->
+         <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <li><a href="<?php echo base_url() ?>auth/logout"><?php echo $this->session->userdata('username'); ?> <i class="fa fa-sign-out"></i> </a></li>
+            <!-- User Account Menu -->
+          </ul>
         </div>
-        <!-- /.container-fluid -->
-      </nav>
-    </header>
-    <!-- Full Width Column -->
-    <div class="content-wrapper">
-      <div class="container">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            <?php echo isset($header) ? $header : ''; ?>
-          </h1>
-        </section>
-        <!-- Main content -->
-        <section class="content">
-          <?php echo $content ?>
-        </section>
-        <!-- /.content -->
+        <!-- /.navbar-custom-menu -->
       </div>
-      <!-- /.container -->
+      <!-- /.container-fluid -->
+    </nav>
+  </header>
+  <!-- Full Width Column -->
+  <div class="content-wrapper">
+    <div class="container">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <h1>
+          <?php echo isset($header) ? $header : ''; ?>
+        </h1>
+      </section>
+      <!-- Main content -->
+      <section class="content">
+        <?php echo $content ?>
+      </section>
+      <!-- /.content -->
     </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <div class="container">
-        <strong>Sistem Informasi Penjualan Tiket 2017</strong> 
-      </div>
-      <!-- /.container -->
-    </footer>
+    <!-- /.container -->
   </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="container">
+      <strong>Sistem Informasi Penjualan Tiket 2017</strong> 
+    </div>
+    <!-- /.container -->
+  </footer>
+</div>
 
-  <!-- ./wrapper -->
-  <!-- jQuery 2.2.3 -->
-  <script src="<?php echo base_url() ?>assets/js/jquery-3.2.0.min.js"></script>
-  <!-- Bootstrap 3.3.6 -->
-  <script src="<?php echo base_url() ?>assets/template/adminLTE/bootstrap/js/bootstrap.min.js"></script>
-  <!-- FastClick -->
-  <script src="<?php echo base_url() ?>assets/template/adminLTE/plugins/fastclick/fastclick.js"></script>
-  <script src="<?php echo base_url() ?>assets/toastr/toastr.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/jquerypriceformat/jquery.priceformat.min.js"></script>
-  <script src="<?php echo base_url() ?>assets/js/formatuang.js"></script>
-  <?php echo $js; ?>
-  
-  <?php echo $this->session->flashdata('pesan'); ?>
-  <!-- AdminLTE App -->
-  <script src="<?php echo base_url() ?>assets/template/adminLTE/dist/js/app.min.js"></script>
+<!-- ./wrapper -->
+<!-- jQuery 2.2.3 -->
+<script src="<?php echo base_url() ?>assets/js/jquery-3.2.0.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="<?php echo base_url() ?>assets/template/adminLTE/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="<?php echo base_url() ?>assets/template/adminLTE/plugins/fastclick/fastclick.js"></script>
+<script src="<?php echo base_url() ?>assets/toastr/toastr.min.js"></script>
+<script src="<?php echo base_url() ?>assets/jquerypriceformat/jquery.priceformat.min.js"></script>
+<script src="<?php echo base_url() ?>assets/js/formatuang.js"></script>
+<?php echo $js; ?>
+
+<?php echo $this->session->flashdata('pesan'); ?>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url() ?>assets/template/adminLTE/dist/js/app.min.js"></script>
 </body>
 </html>
