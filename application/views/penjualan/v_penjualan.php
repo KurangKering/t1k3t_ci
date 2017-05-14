@@ -18,9 +18,12 @@
             </select>
           </div>
         </div>
-        <div class="col-md-6">
-          <a href="<?php echo base_url('penjualan/tambah_penjualan'); ?>" class="btn btn-primary btn-flat pull-right">Tambah Penjualan</a>
-        </div>
+        <?php if ($isAdmin): ?>
+          <div class="col-md-6">
+            <a href="<?php echo base_url('penjualan/tambah_penjualan'); ?>" class="btn btn-primary btn-flat pull-right">Tambah Penjualan</a>
+          </div>
+        <?php endif ?>
+        
       </div>
       <table  width="100%" class="table table-striped table-bordered table-hover nowrap" cellspacing="0" id="table_penjualan" >
         <thead>
@@ -42,9 +45,9 @@
             <th>Nama TC</th>
             <th>Jumlah</th>
             <?php if ($isAdmin): ?>
-            <th>Action</th>
+              <th>Action</th>
             <?php endif ?>
-            
+
           </tr>
         </thead>
         <tbody>
