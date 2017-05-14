@@ -13,10 +13,12 @@
 
 
 -- Dumping database structure for tiket
+DROP DATABASE IF EXISTS `tiket`;
 CREATE DATABASE IF NOT EXISTS `tiket` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `tiket`;
 
 -- Dumping structure for table tiket.bulan
+DROP TABLE IF EXISTS `bulan`;
 CREATE TABLE IF NOT EXISTS `bulan` (
   `id_bulan` int(11) NOT NULL AUTO_INCREMENT,
   `nama_bulan` varchar(50) NOT NULL,
@@ -43,6 +45,7 @@ INSERT INTO `bulan` (`id_bulan`, `nama_bulan`) VALUES
 /*!40000 ALTER TABLE `bulan` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.konfig
+DROP TABLE IF EXISTS `konfig`;
 CREATE TABLE IF NOT EXISTS `konfig` (
   `persen` decimal(5,4) NOT NULL,
   `fee` int(11) NOT NULL
@@ -56,6 +59,7 @@ INSERT INTO `konfig` (`persen`, `fee`) VALUES
 /*!40000 ALTER TABLE `konfig` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.maskapai
+DROP TABLE IF EXISTS `maskapai`;
 CREATE TABLE IF NOT EXISTS `maskapai` (
   `id_maskapai` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(30) NOT NULL,
@@ -76,6 +80,7 @@ INSERT INTO `maskapai` (`id_maskapai`, `nama`, `status`) VALUES
 /*!40000 ALTER TABLE `maskapai` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.penjualan
+DROP TABLE IF EXISTS `penjualan`;
 CREATE TABLE IF NOT EXISTS `penjualan` (
   `booking_code` varchar(10) NOT NULL,
   `id_tc` int(11) NOT NULL,
@@ -110,6 +115,7 @@ INSERT INTO `penjualan` (`booking_code`, `id_tc`, `id_maskapai`, `tanggal`, `hpp
 /*!40000 ALTER TABLE `penjualan` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.tc
+DROP TABLE IF EXISTS `tc`;
 CREATE TABLE IF NOT EXISTS `tc` (
   `id_tc` int(11) NOT NULL AUTO_INCREMENT,
   `nama` varchar(50) NOT NULL,
@@ -127,6 +133,7 @@ INSERT INTO `tc` (`id_tc`, `nama`, `status`) VALUES
 /*!40000 ALTER TABLE `tc` ENABLE KEYS */;
 
 -- Dumping structure for table tiket.user
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(30) NOT NULL,
@@ -134,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `role_name` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table tiket.user: ~2 rows (approximately)
 DELETE FROM `user`;
@@ -145,6 +152,7 @@ INSERT INTO `user` (`id`, `username`, `password`, `role_name`) VALUES
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for view tiket.view_penjualan
+DROP VIEW IF EXISTS `view_penjualan`;
 -- Creating temporary table to overcome VIEW dependency errors
 CREATE TABLE `view_penjualan` (
 	`id_tc` INT(11) NOT NULL,
@@ -168,6 +176,7 @@ CREATE TABLE `view_penjualan` (
 ) ENGINE=MyISAM;
 
 -- Dumping structure for view tiket.view_penjualan
+DROP VIEW IF EXISTS `view_penjualan`;
 -- Removing temporary table and create final VIEW structure
 DROP TABLE IF EXISTS `view_penjualan`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_penjualan` AS select  `penjualan`.`id_tc` AS `id_tc`,`penjualan`.`id_maskapai` AS `id_maskapai`,`penjualan`.`tanggal` AS `tanggal`,`penjualan`.`booking_code` AS `booking_code`,`penjualan`.`hpp` AS `hpp`,`penjualan`.`persen` AS `persen`,`penjualan`.`invoice` AS `invoice`,`penjualan`.`q` AS `q`,`penjualan`.`fee` AS `fee`,`tc`.`nama` AS `nama_tc`,`maskapai`.`nama` AS `nama_maskapai`,cast((`penjualan`.`hpp` * `penjualan`.`persen`) as unsigned) AS `NTA`,cast((`penjualan`.`hpp` + (`penjualan`.`hpp` * `penjualan`.`persen`)) as unsigned) AS `harga_jual`,cast((`penjualan`.`invoice` - (`penjualan`.`hpp` + (`penjualan`.`hpp` * `penjualan`.`persen`))) as unsigned) AS `up_salling`,cast(((`penjualan`.`hpp` * `penjualan`.`persen`) + (`penjualan`.`invoice` - (`penjualan`.`hpp` + (`penjualan`.`hpp` * `penjualan`.`persen`)))) as unsigned) AS `profit_1`,(`penjualan`.`q` * `penjualan`.`fee`) AS `adm_fee`,cast((((`penjualan`.`hpp` * `penjualan`.`persen`) + (`penjualan`.`invoice` - (`penjualan`.`hpp` + (`penjualan`.`hpp` * `penjualan`.`persen`)))) - (`penjualan`.`q` * `penjualan`.`fee`)) as unsigned) AS `profit_2`,(`penjualan`.`hpp` + (`penjualan`.`q` * `penjualan`.`fee`)) AS `jumlah` from ((`penjualan` join `maskapai` on((`penjualan`.`id_maskapai` = `maskapai`.`id_maskapai`))) join `tc` on((`penjualan`.`id_tc` = `tc`.`id_tc`))) ;
